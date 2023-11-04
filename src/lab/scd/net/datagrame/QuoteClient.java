@@ -28,7 +28,7 @@ public class QuoteClient {
 
             // send request
         byte[] buf = new byte[256];
-        InetAddress address = InetAddress.getByName("10.129.1.98");
+        InetAddress address = InetAddress.getByName("localhost");
         DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 4445);
         socket.send(packet);
     
