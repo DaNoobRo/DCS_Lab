@@ -34,7 +34,7 @@ public class Ex2 {
 
     //String separator = "{[<NL,FF><NL,FF><FF,FF><FF,PL><FF,PL>]}";
     //Modified for c)
-    String separator = "{[<FF,NL><FF,NL><FF,FF><PL,FF><PL,FF>]}"; // Is this enough??
+    String separator = "{[<FF,NL><FF,NL><FF,FF><PL,FF><PL,FF>]}";
 
     public Ex2() {
         // the Petri network is being constructed
@@ -108,13 +108,13 @@ public class Ex2 {
 
         (new Thread(executor)).start();
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1080; i++) {
 
             // constructing the dictionary collection (map) for inputs
 
             Map<Integer, FuzzyToken> inps = new HashMap<>();
 
-            if (i % 10 < 5) {
+            //if (i % 10 < 5) {
 
                 /* Original Code
 				inps.put(p0Inp, driver.fuzzifie(i/100.0));
@@ -127,15 +127,15 @@ public class Ex2 {
 
                 // placing the fuzzyficated token
 
-                inps.put(p0Inp, driver.fuzzifie(Math.sin(i)));
-                inps.put(p1Inp, driver.fuzzifie(Math.cos(i)));
+                inps.put(p0Inp, driver.fuzzifie(Math.sin(Math.toRadians(i))));
+                inps.put(p1Inp, driver.fuzzifie(Math.cos(Math.toRadians(i))));
 
-            } else {
+            //} else {
 
-                inps.put(p1Inp, driver.fuzzifie(Math.sin(i)));
-                inps.put(p0Inp, driver.fuzzifie(Math.cos(i)));
+              //  inps.put(p1Inp, driver.fuzzifie(Math.sin(i)));
+               // inps.put(p0Inp, driver.fuzzifie(Math.cos(i)));
 
-            }
+           // }
             // placing the input tokens for the executer
 
             executor.putTokenInInputPlace(inps);
