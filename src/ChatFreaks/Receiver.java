@@ -9,12 +9,12 @@ import java.net.InetAddress;
 class Receiver extends Thread{
 
     private DatagramSocket socket = null;
-    private JTextField inputField;
 
-    public Receiver(String name, JTextField inputField) throws IOException {
+    JTextArea outputArea;
+    public Receiver(String name,JTextArea outputArea) throws IOException {
         super(name);
         socket = new DatagramSocket(4445);
-        this.inputField = inputField;
+        this.outputArea = outputArea;
     }
 
     public void run() {
@@ -24,18 +24,17 @@ class Receiver extends Thread{
 
                 DatagramPacket packet = new DatagramPacket(buf, buf.length);
 
-                socket.receive(packet);
-                String dString = null;
-                dString = inputField.getText();
-                buf = dString.getBytes();
-
                 InetAddress address = packet.getAddress();
                 int port = packet.getPort();
-                packet = new DatagramPacket(buf, buf.length, address, port);
-                socket.send(packet);
+                packet= new DatagramPacket(buf, buf.length);
+                socket.receive(packet);
+
+                String received = new String(packet.getData());
+                outputArea.append("\n (Carnati) >>"+received);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
     }
 }

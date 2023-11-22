@@ -12,56 +12,45 @@ import java.net.*;
 
 public class Client1 {
     public static void main(String args[]) throws IOException {
-        JFrame frame = new JFrame("Messaging App");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(640, 640);
-        frame.getContentPane().setBackground(new Color(64, 179, 196));
 
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new FlowLayout());
-        inputPanel.setBackground(new Color(64,179 , 255));
-        inputPanel.setBorder(new RoundedBorder(10));
-        frame.add(inputPanel);
+            JFrame frame = new JFrame("Chat App");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(640, 640);
 
-        JTextField inputField = new JTextField("Write Here");
-        inputField.setPreferredSize(new Dimension(500, 30));
-        inputField.setBorder(new RoundedBorder(10));
-        inputPanel.add(inputField);
+            JTextArea heading = new JTextArea();
+            heading.setBounds(10, 10, 600, 50);
+            heading.setText("Chat Site");
+            heading.setEditable(false);
+            frame.add(heading);
 
-        JTextArea outputArea = new JTextArea();
-        outputArea.setPreferredSize(new Dimension(600, 300));
-        outputArea.setBorder(new RoundedBorder(10));
-        outputArea.setEditable(false);
-        frame.add(outputArea);
+            JTextField inputField = new JTextField(" <Write Here> ");
+            inputField.setBounds(10, 410, 500, 30);
+            frame.add(inputField);
 
-        JButton button = new JButton("Send");
-        button.setBackground(new Color(100, 149, 237));
-        button.setForeground(Color.WHITE);
-        button.setBorder(new RoundedBorder(10));
-        button.addActionListener(e -> new Sender(outputArea).start());
-        frame.add(button);
+            JTextArea outputArea = new JTextArea();
+            outputArea.setBounds(10, 100, 600, 300);
+            outputArea.setEditable(false);
+            frame.add(outputArea);
 
-        frame.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        frame.setVisible(true);
+            JButton button = new JButton("Send");
+            button.setBounds(530, 410, 80, 30);
+            button.setBackground(Color.GREEN);
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    new Sender(outputArea, inputField).start();
+                }
+            });
+            frame.add(button);
 
-        new Receiver("Serve", inputField).start();
-    }
-}
+            frame.setLayout(null);
+            frame.setVisible(true);
 
-class RoundedBorder extends AbstractBorder {
-    private int radius;
-
-    RoundedBorder(int radius) {
-        this.radius = radius;
+            new Receiver("Serve", outputArea).start();
+        }
     }
 
-    @Override
-    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-        super.paintBorder(c, g, x, y, width, height);
-        g.setColor(Color.GRAY);
-        g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
-    }
-}
+
 
 
 
