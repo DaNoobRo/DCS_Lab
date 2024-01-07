@@ -1,0 +1,6 @@
+Because these two labs require the OETPN framework that is already used for the
+project homework, I decided to create their packages there for convenience sake
+link below:
+https://github.com/DaNoobRo/30342_DCS_project
+You will most likely find them in packages
+under names like Lab5 and Lab6
